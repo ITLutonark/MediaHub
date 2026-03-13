@@ -1,0 +1,81 @@
+{% load static %}
+{% load media_users %}
+{% load has_new_notify %}
+
+<div class="header-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{% url 'index' %}">
+                <img src="{% static 'mainapp/images/templatemo_logo.png' %}" alt="SENT_HABR" width="40" height="30" class="d-inline-block align-text-top me-2">
+                МедиаХаббы 
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.view_name == 'index' %}active{% endif %}"
+                           href="{% url 'index' %}" aria-current="page">Все</a>
+                    </li>
+                    {% for link in sections_menu %}
+                {% if link.slug != 'help' %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.resolver_match.kwargs.section_slug == link.slug %}active{% endif %}"
+                                   href="{% url 'section' link.slug %}">{{ link.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.view_name == 'habr_help' %}active{% endif %}"
+                           href="{% url 'help' %}">Помощь</a>
+                    </li>
+                </ul>
+
+                <form class="d-flex me-3 search-form" action="{% url 'search:search' %}">
+                    <input class="form-control me-2" type="search" placeholder="Поиск" name="q" aria-label="Поиск">
+                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+
+                <div class="navbar-text d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="avatar circle me-2" width="30" height="30">
+                        {% else %}
+                            <img src="{% static 'mainapp/images/default_django-icon.png' %}" alt="{{ user.first_name }}" class="avatar circle me-2" width="30" height="30">
+                        {% endif %}
+
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.first_name|default:'Пользователь' }}
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'auth:edit' %}"><i class="fas fa-user-edit me-2"></i>Редактировать профиль</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}"><i class="fas fa-user me-2"></i>Персональная страница</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'notification:my_notifications' user.pk %}">
+                                        {% if request.user|has_new_notify %}
+                                            <span class="indicator new"></span>
+                                        {% endif %}
+                                        <i class="fas fa-bell me-2"></i>Мои уведомления
+                                    </a>
+                                </li>
+                                {% if user.is_superuser %}
+                                    <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fas fa-cog me-2"></i>Админ. панель</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{% url 'auth:logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Выход</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'auth:login' %}" class="btn btn-outline-light"><i class="fas fa-sign-in-alt me-2"></i>Войти</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+

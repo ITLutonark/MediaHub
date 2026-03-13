@@ -1,0 +1,59 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+
+    <h1 class="page-title">{% if section_slug %}Раздел: {{ section_slug|title }} {% else %}Все статьи{% endif %}</h1>
+
+     {% for article in article_list %}
+        <article class="article-card">
+            <header>
+                <h2 class="article-title">
+                    <a href="{% url 'articleapp:detail' article.pk %}">{{ article.title }}</a>
+                </h2>
+                <div class="article-meta">
+                    <span>Время: {{ article.updated_at|date:"d.m.Y H:i" }}</span>
+                    <span>Автор: {{ article.author.username }}</span>
+                    <span>Рейтинг: с {{ article.votes.sum_rating }}</span>
+                </div>
+            </header>
+            <div class="article-excerpt">
+                {{ article.content|safe|truncatewords_html:30 }}
+                </div>
+            <div class="article-categories">
+                <span class="category-tag">{{ article.section.name }}</span>
+                {% for tag in article.tags.all %}
+                    <span class="category-tag">{{ tag.name }}</span>
+    {% endfor %}
+            </div>
+
+            <footer class="article-footer">
+                <a href="{% url 'articleapp:detail' article.pk %}" class="read-more">Читать далее →</a>
+
+                <div class="rating float_r">
+                    <i class="fas fa-star"></i>
+                    <span>{{ article.votes.sum_rating }}</span>
+                </div>
+            </footer>
+        </article>
+
+        <div class="cleaner_h20"></div>
+            {% endfor %}
+
+    <nav class="nav-links">
+        {% for num in page_obj.paginator.page_range %}
+            {% if num < page_obj.number and num < 2 and page_obj.number > 3 %}
+                <a href="?page={{ 1 }}">Начало</a>
+            {% elif num < page_obj.number and num > page_obj.number|add:-3 %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% elif num == page_obj.number %}
+                <span class="active">{{ num }}</span>
+            {% elif num > page_obj.number and num < page_obj.number|add:3 %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number and num > page_obj.paginator.num_pages|add:-1 %}
+                <a href="?page={{ num }}">Конец</a>
+            {% endif %}
+        {% endfor %}
+    </nav>
+
+{% endblock %}
+

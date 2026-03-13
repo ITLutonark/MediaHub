@@ -1,0 +1,31 @@
+{% load static %}
+{% load cache %}
+
+{% cache 300 sidebar_one %}
+<div class="sidebar-section">
+    <h3 class="sidebar-title">Лучшие статьи</h3>
+    <ul class="popular-list">
+        {% for article in popular_articles %}
+           <li><a href="{% url 'articleapp:detail' article.pk %}" class="popular-link">{{article.title}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="sidebar-section">
+    <h3 class="sidebar-title">Популярные пользователи</h3>
+    <ul class="popular-list">
+        {% for user in popular_users %}
+            <li>
+                <div class="d-flex align-items-center">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="user-avatar" data-view-component="true">
+                    {% else %}
+                        <img src="{% static 'mainapp/images/default_django-icon.png' %}" alt="{{ user.first_name }}" class="user-avatar" data-view-component="true">
+                    {% endif %}
+                    <a href="{% url 'account:personal_page' user.pk %}" class="popular-link ms-2">{{ user.username }}</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endcache %}

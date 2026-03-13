@@ -1,0 +1,12 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+
+    <h2> Удалить статью </h2>
+    <form action="" method="post">{% csrf_token %}
+        <h2> Вы уверены, что хотите удалить статью {{ object }}"?</h2>
+        <input type="submit" class="btn btn-primary" value="Да"/>
+        <a href="{% url 'articleapp:detail' object.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Отмена </a>
+    </form>
+
+{% endblock %}

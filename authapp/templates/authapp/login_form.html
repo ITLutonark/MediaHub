@@ -1,0 +1,17 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+    <div class="mb-3">
+        <h2>Войти</h2>
+        <form  action=" " method="post">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input type="hidden" name="next" value="{{ request.META.HTTP_REFERER }}">
+            <button type="submit" class="btn btn-primary">Войти</button>
+            <a href="{% url 'auth:register' %}"  class="btn btn-primary" style="color: #FFFFFF">Зарегистрироваться</a>
+            <a href="{% url 'auth:password_reset' %}"  class="btn btn-primary" style="color: #FFFFFF">Забыли пароль?</a>
+        </form>
+    </div>
+{% endblock %}
