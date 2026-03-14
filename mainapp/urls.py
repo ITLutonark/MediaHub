@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import IndexListView, SectionListView, HelpView
+from .views import IndexListView, SectionListView, HelpView, TagsJsonView
 
 urlpatterns = [
     path('', IndexListView.as_view(), name='index'),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('likes/', include('likeapp.urls', namespace='likes'), name='likes'),
     path('notification/', include('notificationapp.urls', namespace='notification'), name='notification'),
     path('search/', include('searchapp.urls', namespace='search'), name='search'),
+    path('tags/json/', TagsJsonView.as_view(), name='tags_json'),
     path('<slug:section_slug>/', SectionListView.as_view(), name='section'),
 ]

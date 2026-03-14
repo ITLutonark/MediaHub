@@ -1,6 +1,7 @@
+from django.http import JsonResponse
 from django.views import View
 from django.views.generic import ListView, TemplateView
-from articleapp.models import Article
+from articleapp.models import Article, Tag
 from articleapp.services import get_articles_by_section, queryset_for_articles, \
     get_all_published_articles
 
@@ -52,5 +53,13 @@ class HelpView(TemplateView):
         help_article = get_articles_by_section(queryset_for_articles(), 'help').first()
         context['help_article'] = help_article
         return context
+
+
+class TagsJsonView(View):
+    """Возвращает список всех тегов в формате JSON для автодополнения"""
+    
+    def get(self, request):
+        tags = Tag.objects.all().values_list('name', flat=True)
+        return JsonResponse(list(tags), safe=False)
 
 

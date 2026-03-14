@@ -1,13 +1,33 @@
 /* Новые стили для современного вида */
 
-/* Основной контейнер */
+/* Body как flex-контейнер для прижатия футера */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Хедер - закрепленный вверху */
+.header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Основной контейнер - растягивается */
 .main-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     gap: 30px;
     padding: 0 20px;
-    min-height: calc(100vh - 70px);
+    flex: 1 0 auto;
+    min-height: 0;
 }
 
 /* Контент */
@@ -278,6 +298,33 @@
     border-color: #667eea;
 }
 
+.nav-links span.active {
+    padding: 8px 14px;
+    background: #667eea;
+    color: white;
+    border: 1px solid #667eea;
+    border-radius: 6px;
+    cursor: default;
+}
+
+.nav-links .nav-prev,
+.nav-links .nav-next {
+    padding: 8px 14px;
+    background: #f8f9fa;
+    border: 1px solid #e1e8ed;
+    color: #2c3e50;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-links .nav-prev:hover,
+.nav-links .nav-next:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
 /* Индикаторы */
 .indicator {
     display: inline-block;
@@ -325,18 +372,24 @@
 
 /* Стили для footer */
 .footer-wrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
     background: rgba(0,0,0,0.9);
-    backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255,255,255,0.1);
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer-wrapper footer {
+    padding: 20px 0;
+}
+
+/* Переопределяем старые стили футера */
+#templatemo_footer_wrapper,
+#templatemo_footer {
+    display: none !important;
 }
 
 .footer-wrapper .footer {
-    padding: 15px 0;
+    padding: 5px 0;
     background: transparent;
 }
 
@@ -348,19 +401,6 @@
     transform: translateY(-2px);
 }
 
-/* Адаптивность для footer */
-@media (max-width: 768px) {
-    .footer-wrapper {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        right: auto;
-    }
-    
-    .main-container {
-        min-height: auto;
-    }
-}
 
 /* Анимации для footer */
 .footer-wrapper {
@@ -419,3 +459,94 @@
 .search-form .btn:hover {
     background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
+
+/* Выпадающее меню - принудительно светлая тема */
+.header-wrapper .navbar .dropdown-menu {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+.header-wrapper .navbar .dropdown-menu,
+.header-wrapper .navbar .dropdown-menu * {
+    color: #000 !important;
+}
+
+.header-wrapper .navbar .dropdown-menu .dropdown-item {
+    color: #000 !important;
+}
+
+.header-wrapper .navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa !important;
+    color: #000 !important;
+}
+
+.header-wrapper .navbar .dropdown-menu .dropdown-item i {
+    color: #000 !important;
+}
+
+/* Аватарка на странице профиля */
+.page_avatar {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover;
+}
+
+/* Стили для тегов (tag chips) */
+.tag-chips-wrapper {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-top: 10px;
+margin-bottom: 15px;
+}
+
+.tag-chip {
+display: inline-flex;
+align-items: center;
+background: #3498db;
+color: white;
+padding: 6px 12px;
+border-radius: 20px;
+font-size: 14px;
+font-weight: 500;
+gap: 6px;
+}
+
+.tag-remove {
+cursor: pointer;
+font-size: 16px;
+line-height: 1;
+opacity: 0.8;
+transition: opacity 0.2s ease;
+}
+
+.tag-remove:hover {
+opacity: 1;
+}
+
+/* Стили для автодополнения */
+.autocomplete-dropdown {
+border: 1px solid #ddd;
+border-top: none;
+background: white;
+max-height: 200px;
+overflow-y: auto;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+border-radius: 0 0 8px 8px;
+}
+
+.autocomplete-item {
+padding: 10px 15px;
+cursor: pointer;
+transition: background-color 0.2s ease;
+}
+
+.autocomplete-item:hover {
+background-color: #f0f0f0;
+}
+
+.autocomplete-item.active {
+background-color: #e3f2fd;
+color: #1976d2;
+}
+ 

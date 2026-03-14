@@ -6,8 +6,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="{% url 'index' %}">
-                <img src="{% static 'mainapp/images/templatemo_logo.png' %}" alt="SENT_HABR" width="40" height="30" class="d-inline-block align-text-top me-2">
-                МедиаХаббы 
+                <img src="{% static 'mainapp/images/logo.jpg' %}" alt="MediaHub" width="40" height="30" style="border-radius: 15px;" class="d-inline-block align-text-top me-2">
+                МедиаХаб 
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -53,21 +53,21 @@
                                 {{ user.first_name|default:'Пользователь' }}
                             </button>
 
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{% url 'auth:edit' %}"><i class="fas fa-user-edit me-2"></i>Редактировать профиль</a></li>
-                                <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}"><i class="fas fa-user me-2"></i>Персональная страница</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end" style="background-color: #fff !important; color: #000 !important;">
+                                <li><a class="dropdown-item" style="color: #000 !important;" href="{% url 'auth:edit' %}"><i class="fas fa-user-edit me-2" style="color: #000 !important;"></i>Редактировать профиль</a></li>
+                                <li><a class="dropdown-item" style="color: #000 !important;" href="{% url 'account:personal_page' user.pk %}"><i class="fas fa-user me-2" style="color: #000 !important;"></i>Персональная страница</a></li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'notification:my_notifications' user.pk %}">
+                                    <a class="dropdown-item" style="color: #000 !important;" href="{% url 'notification:my_notifications' user.pk %}">
                                         {% if request.user|has_new_notify %}
                                             <span class="indicator new"></span>
                                         {% endif %}
-                                        <i class="fas fa-bell me-2"></i>Мои уведомления
+                                        <i class="fas fa-bell me-2" style="color: #000 !important;"></i>Мои уведомления
                                     </a>
                                 </li>
                                 {% if user.is_superuser %}
-                                    <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fas fa-cog me-2"></i>Админ. панель</a></li>
+                                    <li><a class="dropdown-item" style="color: #000 !important;" href="{% url 'admin:index' %}"><i class="fas fa-cog me-2" style="color: #000 !important;"></i>Админ. панель</a></li>
                                 {% endif %}
-                                <li><a class="dropdown-item" href="{% url 'auth:logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Выход</a></li>
+                                <li><a class="dropdown-item" style="color: #000 !important;" href="{% url 'auth:logout' %}"><i class="fas fa-sign-out-alt me-2" style="color: #000 !important;"></i>Выход</a></li>
                             </ul>
                         </div>
                     {% else %}

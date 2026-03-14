@@ -7,8 +7,44 @@
     <form action="{% url 'article:edit' article.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form_class.media }}
-        {{ form_class.as_p }}
-        <input class="form-control" type="submit" value="Сохранить изменения">
+        
+        <div class="form-group">
+            <label for="id_title">Название статьи:</label>
+            {{ form_class.title }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_section">Раздел:</label>
+            {{ form_class.section }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_tags">Тэги:</label>
+            <input type="text"
+                   class="form-control tag-input"
+                   id="id_tags"
+                   name="tags"
+                   placeholder="Введите теги через запятую (например: Python, Django, Веб-разработка)"
+                   value="{{ form_class.tags.value|default:'' }}">
+            <small class="form-text text-muted">Вводите теги через запятую. Новые теги будут созданы автоматически.</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_content">Содержание:</label>
+            {{ form_class.content }}
+        </div>
+        
+        <div class="form-group">
+            <label>Отправить на модерацию или сохранить как черновик:</label>
+            {{ form_class.status }}
+        </div>
+        
+        <input class="btn btn-primary" type="submit" value="Сохранить изменения">
     </form>
 
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script src="{% static 'mainapp/js/tags.js' %}"></script>
 {% endblock %}

@@ -3,7 +3,7 @@ from articleapp.models import Article
 from authapp.models import User
 from commentapp.models import Comment
 from .models import LikeDislike
-from .views import VotesView
+from .views import VotesView, check_like_status
 
 app_name = 'likes'
 
@@ -17,4 +17,6 @@ urlpatterns = [
     path('user/<int:pk>/like/', VotesView.as_view(model=User, vote_type=LikeDislike.LIKE), name='user_like'),
     path('user/<int:pk>/dislike/', VotesView.as_view(model=User, vote_type=LikeDislike.DISLIKE),
          name='user_dislike'),
+    path('check/<str:model>/<int:pk>/', check_like_status, name='check_like_status'),
 ]
+

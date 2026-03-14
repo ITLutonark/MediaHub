@@ -1,0 +1,184 @@
+/* Стили для кнопок лайков */
+
+/* Контейнер действий комментария (Ответить + лайки) */
+.comment-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px;
+    margin: 10px 0;
+    flex-wrap: nowrap !important;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+/* Кнопка "Ответить" */
+.comment-actions .reply-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: #6c757d;
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+.comment-actions .reply-btn:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: white;
+}
+
+/* Основные стили для контейнера лайков */
+.comment-actions .likes {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    gap: 6px;
+    margin: 0;
+    align-items: center !important;
+    list-style: none;
+    padding: 0;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+/* Элементы списка лайков (кнопки) */
+.comment-actions .likes li {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    padding: 5px 10px;
+    flex-shrink: 0;
+}
+
+/* Стили для кнопки лайка */
+.comment-actions .likes .like {
+    display: inline-flex !important;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.comment-actions .likes .like:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.comment-actions .likes .like.active {
+    background: #20c997;
+}
+
+/* Стили для кнопки дизлайка */
+.comment-actions .likes .dislike {
+    display: inline-flex !important;
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.comment-actions .likes .dislike:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.comment-actions .likes .dislike.active {
+    background: #e83e8c;
+}
+
+/* Стили для счетчиков */
+.comment-actions .like_count,
+.comment-actions .dislike_count {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Стили для иконок */
+.comment-actions .likes li i {
+    font-size: 16px;
+}
+
+/* Анимация для активных состояний */
+.comment-actions .likes .like.active i,
+.comment-actions .likes .dislike.active i {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .comment-actions .likes {
+        gap: 5px;
+    }
+    
+    .comment-actions .likes .like,
+    .comment-actions .likes .dislike {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    
+    .comment-actions .like_count,
+    .comment-actions .dislike_count {
+        font-size: 12px;
+    }
+}
+
+/* Стили для блока автора и лайков */
+.autor_likes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.autor_likes strong {
+    color: #6c757d;
+}
+
+.autor_likes a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.autor_likes a:hover {
+    text-decoration: underline;
+}

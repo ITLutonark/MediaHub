@@ -12,7 +12,7 @@ class VotesView(View):
     """
         Создание/изменение/удаление лайков/дизлайков.
         На вход принимает название модели контента, id объекта, к которому относится лайк/дизлайк, тип голоса
-        Возвращает json c суммарным с учетом этого голоса количеством лайков/дизлайков и общим рейтингом объекта
+        Возвращает json c суммарным учетом этого голоса количеством лайков/дизлайков и общим рейтингом объекта
 
     """
     model = None
@@ -58,3 +58,50 @@ class VotesView(View):
             }),
             content_type="application/json"
         )
+
+
+def check_like_status(request, model, pk):
+    """
+    Проверяет, лайкнули ли пользователь объект
+    Модель может быть: 'article', 'comment', 'user'
+    """
+    if not request.user.is_authenticated:
+        return HttpResponse(
+            json.dumps({"liked_by_user": False}),
+            content_type="application/json"
+        )
+
+    model_mapping = {
+        'article': 'articleapp.models.Article',
+        'comment': 'commentapp.models.Comment',
+        'user': 'authapp.models.User',
+    }
+
+    if model not in model_mapping:
+        return HttpResponse(
+            json.dumps({"error": "Invalid model"}),
+            content_type="application/json",
+            status=400
+        )
+
+    try:
+        content_type = ContentType.objects.get(app_label=model_mapping[model].split('.')[0],
+                                               model=model_mapping[model].split('.')[1])
+        obj = content_type.get_object_for_this_type(pk=pk)
+        likedislike = LikeDislike.objects.filter(
+            content_type=content_type,
+            object_id=obj.id,
+            user=request.user
+        ).exists()
+
+        return HttpResponse(
+            json.dumps({"liked_by_user": likedislike}),
+            content_type="application/json"
+        )
+    except (ContentType.DoesNotExist, Exception) as e:
+        return HttpResponse(
+            json.dumps({"error": str(e)}),
+            content_type="application/json",
+            status=400
+        )
+
