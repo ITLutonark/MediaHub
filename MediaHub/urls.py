@@ -1,4 +1,4 @@
-"""SENT_HABR URL Configuration
+"""MediaHub URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -20,16 +20,19 @@ from django.conf.urls.static import static
 from django.views.decorators.cache import never_cache
 from ckeditor_uploader import views as ckeditor_views
 
-from SENT_HABR import settings
+from MediaHub import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls')),
-    path('ckeditor/upload/', login_required(ckeditor_views.upload), name='ckeditor_upload'),
-    path('ckeditor/browse/', never_cache(login_required(ckeditor_views.browse)), name='ckeditor_browse'),
-    path('likes/', include('likeapp.urls')),
+    path('ckeditor/upload/',
+         login_required(ckeditor_views.upload),
+         name='ckeditor_upload'),
+    path('ckeditor/browse/',
+         never_cache(login_required(ckeditor_views.browse)),
+         name='ckeditor_browse'),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

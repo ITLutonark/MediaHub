@@ -2,7 +2,13 @@
 
 {% block content %}
 
-    <h1 class="page-title">{% if section_slug %}Раздел: {{ section_slug|title }} {% else %}Все статьи{% endif %}</h1>
+    <h1 class="page-title">
+        {% if section %}
+            Раздел: {{ section.name }}
+        {% else %}
+            Все статьи
+        {% endif %}
+    </h1>
 
      {% for article in article_list %}
         <article class="article-card">

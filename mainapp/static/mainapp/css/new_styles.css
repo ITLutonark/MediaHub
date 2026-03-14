@@ -166,6 +166,23 @@ body {
     flex-shrink: 0;
 }
 
+/* Аватар пользователя (общие стили) */
+img.avatar {
+    border-radius: 50% !important;
+    object-fit: cover;
+}
+
+/* Круглая аватарка в навбаре */
+.navbar-text img.avatar,
+.navbar-text img.circle {
+    border-radius: 50% !important;
+    object-fit: cover;
+    width: 30px !important;
+    height: 30px !important;
+    display: block;
+    flex-shrink: 0;
+}
+
 /* Кнопки */
 .btn-modern {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

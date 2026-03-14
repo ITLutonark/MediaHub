@@ -1,13 +1,17 @@
 from django.http import JsonResponse
 from django.views import View
 from django.views.generic import ListView, TemplateView
-from articleapp.models import Article, Tag
-from articleapp.services import get_articles_by_section, queryset_for_articles, \
+from articleapp.models import Article, Tag, Section
+from articleapp.services import (
+    get_articles_by_section,
+    queryset_for_articles,
     get_all_published_articles
+)
 
 
 class IndexListView(ListView):
-    """Главная страница сайта с выводом списка всех статей, отсортированных по дате изменения """
+    """Главная страница сайта с выводом списка всех статей,
+    отсортированных по дате изменения"""
     template_name = 'mainapp/index.html'
     model = Article
     paginate_by = 5
@@ -25,11 +29,18 @@ class IndexListView(ListView):
         context = super(IndexListView, self).get_context_data(**kwargs)
         section_slug = self.request.GET.get('section')
         context['title'] = section_slug or 'all_articles'
+        if section_slug:
+            try:
+                section = Section.objects.get(slug=section_slug)
+                context['section'] = section
+            except Section.DoesNotExist:
+                context['section'] = None
         return context
 
 
 class SectionListView(ListView):
-    """Страницы сайта с выводом списка всех статей, отсортированных по разделам """
+    """Страницы сайта с выводом списка всех статей,
+    отсортированных по разделам"""
     template_name = 'mainapp/index.html'
     model = Article
     paginate_by = 10
@@ -40,7 +51,13 @@ class SectionListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SectionListView, self).get_context_data(**kwargs)
-        context['title'] = self.kwargs['section_slug']
+        section_slug = self.kwargs['section_slug']
+        context['title'] = section_slug
+        context['section_slug'] = section_slug
+        try:
+            context['section'] = Section.objects.get(slug=section_slug)
+        except Section.DoesNotExist:
+            context['section'] = None
         return context
 
 
@@ -50,7 +67,9 @@ class HelpView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HelpView, self).get_context_data(**kwargs)
-        help_article = get_articles_by_section(queryset_for_articles(), 'help').first()
+        help_article = get_articles_by_section(
+            queryset_for_articles(), 'help'
+        ).first()
         context['help_article'] = help_article
         return context
 

@@ -1,5 +1,5 @@
 """
-ASGI config for SENT_HABR project.
+ASGI config for MediaHub project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SENT_HABR.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MediaHub.settings')
 
 application = get_asgi_application()

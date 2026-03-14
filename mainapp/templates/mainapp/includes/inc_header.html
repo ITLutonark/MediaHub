@@ -42,9 +42,9 @@
                 <div class="navbar-text d-flex align-items-center">
                     {% if user.is_authenticated %}
                         {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="avatar circle me-2" width="30" height="30">
+                            <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="avatar circle me-2">
                         {% else %}
-                            <img src="{% static 'mainapp/images/default_django-icon.png' %}" alt="{{ user.first_name }}" class="avatar circle me-2" width="30" height="30">
+                            <img src="{% static 'mainapp/images/default_django-icon.png' %}" alt="{{ user.first_name }}" class="avatar circle me-2">
                         {% endif %}
 
                         <div class="dropdown">

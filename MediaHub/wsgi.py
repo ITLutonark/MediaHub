@@ -1,5 +1,5 @@
 """
-WSGI config for SENT_HABR project.
+WSGI config for MediaHub project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SENT_HABR.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MediaHub.settings')
 
 application = get_wsgi_application()
