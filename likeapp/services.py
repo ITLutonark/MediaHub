@@ -40,3 +40,5 @@ def get_popular_elements(queryset, count):
 def element_sum_rating(article):
     """Вычисление рейтинга элементов article"""
     return article.votes.sum_rating()
+
+
