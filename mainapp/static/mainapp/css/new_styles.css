@@ -563,7 +563,55 @@ background-color: #f0f0f0;
 }
 
 .autocomplete-item.active {
-background-color: #e3f2fd;
-color: #1976d2;
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+/* Стили для рекламного блока в сайдбаре */
+.ad-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+    border: 1px solid #d1d9e6;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ad-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.ad-container {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.ad-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.ad-container:hover .ad-image {
+    transform: scale(1.02);
+}
+
+.ad-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 10px;
+    padding: 8px 0;
+    border-top: 1px solid #d1d9e6;
+}
+
+.ad-section .sidebar-title {
+    color: #667eea;
+    border-bottom-color: #667eea;
 }
  

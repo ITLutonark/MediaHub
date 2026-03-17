@@ -28,10 +28,12 @@ def content_owner(content_obj):
         return content_obj.author
     elif obj_type == 'user':
         return content_obj
+    else:
+        return None
 
 
 def get_popular_elements(queryset, count):
-    """Возвращает список, состоящий из count элементов с максимальным рейтингом"""
+    """Возвращает список из count элементов с максимальным рейтингом"""
     elements = list(queryset)
     sorted_elements = sorted(elements, key=element_sum_rating, reverse=True)
     return sorted_elements[:count]

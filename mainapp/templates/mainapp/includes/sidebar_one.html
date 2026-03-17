@@ -2,7 +2,6 @@
 {% load cache %}
 {% load media_users %}
 
-{% cache 300 sidebar_one %}
 <div class="sidebar-section">
     <h3 class="sidebar-title">Лучшие статьи</h3>
     <ul class="popular-list">
@@ -24,5 +23,16 @@
             </li>
         {% endfor %}
     </ul>
+</div>
+
+{% cache 300 "sidebar_one_v4" %}
+<div class="sidebar-section ad-section">
+    <h3 class="sidebar-title">yandex.ru</h3>
+    <div class="ad-container">
+        <a href="#" target="_blank" rel="noopener noreferrer">
+            <img src="{% static 'mainapp/images/orig.png' %}" alt="Реклама" class="ad-image">
+            <div class="ad-text">Новый текст рекламы</div>
+        </a>
+    </div>
 </div>
 {% endcache %}
